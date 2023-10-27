@@ -1,0 +1,31 @@
+@import "./variables";
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 16px;
+  color: $black;
+  font-weight: 700;
+}
+
+input {
+  font-weight: 400;
+  border: 1px solid $input-border-color;
+  transition: $transition;
+  display: block;
+  padding: 16px;
+  border-radius: 8px;
+  &:focus {
+    outline: none;
+    border: 1px solid $primary-color;
+  }
+  &::placeholder {
+    color: #d0d5da;
+  }
+}
+
+span {
+  font-size: 14px;
+  color: $error-color;
+  font-weight: 700;
+}

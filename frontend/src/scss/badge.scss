@@ -1,0 +1,29 @@
+@import "./variables";
+
+.badge {
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-weight: 700;
+  cursor: pointer;
+
+  &--warning {
+    color: $warning-color;
+    background-color: $warning-bg-color;
+  }
+
+  &--info {
+    color: $info-color;
+    background-color: $info-bg-color;
+  }
+
+  &--success {
+    color: $success-color;
+    background-color: $success-bg-color;
+  }
+
+  &--error {
+    color: $error-color;
+    background-color: $error-bg-color;
+  }
+}
