@@ -18,5 +18,5 @@ export const signupValidation = [
 
 export const taskValidation = [
   body("title").notEmpty().withMessage("Title is required"),
-  body("dueDate").trim().isDate().withMessage("Due date must be a valid date")
+  body("dueDate").trim().notEmpty().withMessage("Due date is required")
 ];

@@ -16,7 +16,7 @@ export const taskSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  isComplete: {
+  isCompleted: {
     type: Boolean,
     default: false
   }

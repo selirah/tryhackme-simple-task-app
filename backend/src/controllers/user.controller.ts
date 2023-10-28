@@ -4,7 +4,7 @@ import User from "../models/User.js";
 import { hash, compare } from "bcrypt";
 import { clearCookie, createCookie } from "../utils/cookie-manager.js";
 import { createToken } from "../utils/token-manager.js";
-import { LoginT } from "../types/LoginT.js";
+import { LoginT } from "../types/Login.js";
 
 // User Signup Controller
 export const userSignup = async (req: Request, res: Response) => {
@@ -27,7 +27,10 @@ export const userSignup = async (req: Request, res: Response) => {
     createCookie(res, token);
     return res
       .status(201)
-      .json({ message: "OK", user: { name: user.name, email: user.email } });
+      .json({
+        message: "Created",
+        user: { name: user.name, email: user.email }
+      });
   } catch (error) {
     console.log("USER SIGNUP ERROR: ", error);
     return res.status(500).json({ message: "Something went wrong" });
