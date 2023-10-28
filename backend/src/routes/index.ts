@@ -1,8 +1,8 @@
 import { Router } from "express";
-import helloRoutes from "./hello-routes.js";
+import userRoutes from "./user.route.js";
 
 const appRouter = Router();
 
-appRouter.use("/hello", helloRoutes);
+appRouter.use("/user", userRoutes); // domain/api/v1/user
 
 export default appRouter;
