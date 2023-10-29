@@ -1,17 +1,61 @@
+import { useState, FormEvent, useEffect } from "react";
 import "../css/auth.css";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import { Link } from "react-router-dom";
 import AuthLayout from "../layouts/AuthLayout";
+import { useAuth } from "../hooks/useAuth";
+import type { LoginT } from "../types/Auth";
+import { toast } from "react-hot-toast";
+import Alert from "../components/Alert";
 
 const Login = () => {
+  const auth = useAuth();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const emailFormat = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+    if (!email) {
+      toast.error("Email is required", { id: "login" });
+      return;
+    }
+    if (!email.match(emailFormat)) {
+      toast.error("Enter a valid email address", { id: "login" });
+      return;
+    }
+    if (!password) {
+      toast.error("Password is required", { id: "login" });
+      return;
+    }
+    const payload: LoginT = {
+      email,
+      password
+    };
+    await auth?.login(payload);
+  };
+
+  // useEffect(() => {
+  //   if (auth?.isLoggedIn) {
+  //   }
+  // }, [auth?.isLoggedIn]);
+
   return (
     <AuthLayout svg="login">
       <h4 className="brand">Your Todo</h4>
       <h4 className="auth-title">Sign in</h4>
-      <form>
+      <form onSubmit={handleSubmit}>
+        {auth?.error ? <Alert color="error">{auth.error}</Alert> : null}
         <div className="input-group">
-          <Input name="email" label="Email" placeholder="Enter your email..." />
+          <Input
+            name="email"
+            type="text"
+            label="Email"
+            placeholder="Enter your email..."
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
+          />
         </div>
         <div className="input-group">
           <Input
@@ -19,9 +63,17 @@ const Login = () => {
             label="Password"
             placeholder="Enter your password..."
             type="password"
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
           />
         </div>
-        <Button type="submit" color="primary" size="lg" block>
+        <Button
+          type="submit"
+          color="primary"
+          size="lg"
+          block
+          disabled={auth?.loading}
+        >
           Sign in
         </Button>
       </form>

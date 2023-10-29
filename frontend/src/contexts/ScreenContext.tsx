@@ -18,9 +18,9 @@ const ScreenProvider = ({ children }: { children: ReactNode }) => {
   const [screen, setScreen] = useState<ScreenTypes>("desktop");
 
   const handleLayout = useCallback(() => {
-    if (window.innerWidth >= 320 && window.innerWidth <= 599) {
+    if (window.innerWidth >= 320 && window.innerWidth <= 768) {
       setScreen("mobile");
-    } else if (window.innerWidth >= 600) {
+    } else if (window.innerWidth >= 769) {
       setScreen("desktop");
     }
   }, [setScreen]);

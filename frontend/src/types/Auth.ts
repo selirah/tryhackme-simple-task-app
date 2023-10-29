@@ -13,3 +13,8 @@ export type SignupT = {
   email: string;
   password: string;
 };
+
+export type UserResponseT = {
+  message: string;
+  user: UserT;
+};

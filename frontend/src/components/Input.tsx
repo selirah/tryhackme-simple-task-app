@@ -10,7 +10,7 @@ type InputProps = {
   ref?: LegacyRef<HTMLInputElement>;
   placeholder?: string;
   disabled?: boolean;
-  type?: "text" | "password" | "number";
+  type?: "text" | "password" | "email";
 };
 
 const Input = ({

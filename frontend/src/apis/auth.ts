@@ -1,12 +1,12 @@
 import axios from "axios";
-import { LoginT } from "../types/Auth";
+import type { LoginT, SignupT } from "../types/Auth";
 
 export const loginUser = async (payload: LoginT) => {
-  const res = await axios.post("/user/login", payload);
-  if (res.status !== 200) {
-    throw new Error("Unable to login");
-  }
-  return await res.data;
+  return await axios.post("/user/login", payload);
+};
+
+export const signupUser = async (payload: SignupT) => {
+  return await axios.post("/user/signup", payload);
 };
 
 export const verifyUserAuth = async () => {
