@@ -1,217 +1,52 @@
 @import "./variables";
 
-$background-color_1: #f0f0f0;
-$background-color_4: #222;
-$background-color_5: #444;
-$background-color_6: #a97035;
-$background-color_7: #c68035;
-
 .wrapper {
-  * {
-    box-sizing: border-box;
-  }
-  &::after {
-    box-sizing: border-box;
-  }
-  &::before {
-    box-sizing: border-box;
-  }
-  [type="checkbox"].substituted {
-    margin: 0;
-    width: 0;
-    height: 0;
-    display: inline;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    + {
-      label {
-        &:before {
-          content: "";
-          display: inline-block;
-          vertical-align: top;
-          height: 25px;
-          width: 25px;
-          margin-right: 0.6em;
-          color: rgba($color: $black, $alpha: 0.275);
-          border: 1px solid $input-border-color;
-          box-shadow: 0 0 0.04em, 0 0.06em 0.16em -0.03em inset,
-            0 0 0 0.07em transparent inset;
-          border-radius: 4px;
-          background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xml:space="preserve" fill="white" viewBox="0 0 9 9"><rect x="0" y="4.3" transform="matrix(-0.707 -0.7072 0.7072 -0.707 0.5891 10.4702)" width="4.3" height="1.6" /><rect x="2.2" y="2.9" transform="matrix(-0.7071 0.7071 -0.7071 -0.7071 12.1877 2.9833)" width="6.1" height="1.7" /></svg>')
-              no-repeat center,
-            $white;
-          background-size: 0;
-          will-change: color, border, background, background-size, box-shadow;
-          transform: translate3d(0, 0, 0);
-          transition: color 0.1s, border 0.1s, background 0.15s, box-shadow 0.1s;
-        }
-      }
-    }
-    &:enabled {
-      &:active {
-        + {
-          label {
-            &:before {
-              box-shadow: 0 0 0.04em, 0 0.06em 0.16em -0.03em transparent inset,
-                0 0 0 0.07em rgba(0, 0, 0, 0.1) inset;
-              background-color: $background-color_1;
-            }
-          }
-        }
-      }
-      + {
-        label {
-          &:active {
-            &:before {
-              box-shadow: 0 0 0.04em, 0 0.06em 0.16em -0.03em transparent inset,
-                0 0 0 0.07em rgba(0, 0, 0, 0.1) inset;
-              background-color: $background-color_1;
-            }
-          }
-        }
-      }
-    }
+  display: block;
+
+  input {
+    padding: 0;
+    height: initial;
+    width: initial;
+    display: none;
+    cursor: pointer;
+
     &:checked {
       + {
         label {
-          &:before {
-            background-color: $primary-color;
-            background-size: 0.75em;
-            color: rgba($color: $black, $alpha: 0.075);
-          }
-        }
-      }
-      &:enabled {
-        &:active {
-          + {
-            label {
-              &:before {
-                background-color: $primary-color;
-                color: rgba($color: $black, $alpha: 0.275);
-              }
-            }
-          }
-        }
-        + {
-          label {
-            &:active {
-              &:before {
-                background-color: $primary-color;
-                color: rgba($color: $black, $alpha: 0.275);
-              }
-            }
-          }
-        }
-      }
-    }
-    &:focus {
-      + {
-        label {
-          &:before {
-            box-shadow: 0 0 0.04em, 0 0.06em 0.16em -0.03em transparent inset,
-              0 0 0 0.07em rgba(0, 0, 0, 0.1) inset,
-              0 0 0 3.3px rgba(65, 159, 255, 0.55),
-              0 0 0 5px rgba(65, 159, 255, 0.3);
-          }
-          &:active {
-            &:before {
-              box-shadow: 0 0 0.04em, 0 0.06em 0.16em -0.03em transparent inset,
-                0 0 0 0.07em rgba(0, 0, 0, 0.1) inset,
-                0 0 0 3.3px rgba(65, 159, 255, 0.55),
-                0 0 0 5px rgba(65, 159, 255, 0.3);
-            }
-          }
-        }
-      }
-      &:active {
-        + {
-          label {
-            &:before {
-              box-shadow: 0 0 0.04em, 0 0.06em 0.16em -0.03em transparent inset,
-                0 0 0 0.07em rgba(0, 0, 0, 0.1) inset,
-                0 0 0 3.3px rgba(65, 159, 255, 0.55),
-                0 0 0 5px rgba(65, 159, 255, 0.3);
-            }
-          }
-        }
-      }
-    }
-    &:disabled {
-      + {
-        label {
-          &:before {
-            opacity: 0.5;
+          &:after {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 6px;
+            left: 10px;
+            width: 6px;
+            height: 14px;
+            border: 1px solid $primary-color;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
           }
         }
       }
     }
   }
-  [type="checkbox"].substituted.dark {
-    + {
-      label {
-        &:before {
-          color: rgba($color: $white, $alpha: 0.275);
-          background-color: $background-color_4;
-          background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xml:space="preserve" fill="rgba(34, 34, 34, 0.999)" viewBox="0 0 9 9"><rect x="0" y="4.3" transform="matrix(-0.707 -0.7072 0.7072 -0.707 0.5891 10.4702)" width="4.3" height="1.6" /><rect x="2.2" y="2.9" transform="matrix(-0.7071 0.7071 -0.7071 -0.7071 12.1877 2.9833)" width="6.1" height="1.7" /></svg>');
-        }
-      }
-    }
-    &:enabled {
-      &:active {
-        + {
-          label {
-            &:before {
-              background-color: $background-color_5;
-              box-shadow: 0 0 0.04em, 0 0.06em 0.16em -0.03em transparent inset,
-                0 0 0 0.07em rgba(255, 255, 255, 0.1) inset;
-            }
-          }
-        }
-      }
-      + {
-        label {
-          &:active {
-            &:before {
-              background-color: $background-color_5;
-              box-shadow: 0 0 0.04em, 0 0.06em 0.16em -0.03em transparent inset,
-                0 0 0 0.07em rgba(255, 255, 255, 0.1) inset;
-            }
-          }
-        }
-      }
-    }
-    &:checked {
-      + {
-        label {
-          &:before {
-            background-color: $background-color_6;
-            color: rgba($color: $white, $alpha: 0.075);
-          }
-        }
-      }
-      &:enabled {
-        &:active {
-          + {
-            label {
-              &:before {
-                background-color: $background-color_7;
-                color: rgba($color: $black, $alpha: 0.275);
-              }
-            }
-          }
-        }
-        + {
-          label {
-            &:active {
-              &:before {
-                background-color: $background-color_7;
-                color: rgba($color: $black, $alpha: 0.275);
-              }
-            }
-          }
-        }
-      }
+
+  label {
+    position: relative;
+    cursor: pointer;
+    &:before {
+      content: "";
+      appearance: none;
+      background-color: transparent;
+      border: 1px solid $border-color;
+      border-radius: 4px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05),
+        inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
+      display: inline-block;
+      position: relative;
+      vertical-align: middle;
+      cursor: pointer;
+      width: 25px;
+      height: 25px;
     }
   }
 }

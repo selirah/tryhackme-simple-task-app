@@ -1,0 +1,21 @@
+@import "./variables";
+
+.alert {
+  display: flex;
+  padding: 16px;
+  border-radius: 8px;
+  border: none;
+  width: 100%;
+  font-weight: 700;
+  font-size: 12px;
+
+  &--error {
+    background-color: $error-bg-color;
+    color: $error-color;
+  }
+
+  &--success {
+    background-color: $success-bg-color;
+    color: $success-color;
+  }
+}

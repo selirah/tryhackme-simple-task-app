@@ -29,10 +29,10 @@ const Button = ({
       className={classnames("button", {
         primary: color === "primary" || !color,
         error: color === "error",
-        "primary--block": block,
-        "primary--sm": size === "sm",
-        "primary--md": size === "md" || !size,
-        "primary--lg": size === "lg"
+        "button--block": block,
+        "button--sm": size === "sm",
+        "button--md": size === "md" || !size,
+        "button--lg": size === "lg"
       })}
       disabled={disabled}
       type={type ? type : "button"}
