@@ -70,7 +70,7 @@ export const verifyUser = async (_: Request, res: Response) => {
     }
     // Compare IDs
     if (user._id.toString() !== res.locals?.jwtData?.id) {
-      return res.status(401).json({ message: "Invalid Token" });
+      return res.status(401).json({ message: "Unmatched Permissions!" });
     }
 
     return res
@@ -87,11 +87,11 @@ export const userLogout = async (_: Request, res: Response) => {
   try {
     const user = await User.findById(res.locals?.jwtData?.id);
     if (!user) {
-      return res.status(401).json({ message: "Invalid Token" });
+      return res.status(401).json({ message: "Invalid Token!" });
     }
     // Compare IDs
     if (user._id.toString() !== res.locals?.jwtData?.id) {
-      return res.status(401).json({ message: "Invalid Token" });
+      return res.status(401).json({ message: "Unmatched Permissions!" });
     }
 
     clearCookie(res);

@@ -10,18 +10,15 @@ export const verifyToken = async (
 ) => {
   const token: string = req.signedCookies[`${COOKIE_NAME}`];
   if (!token || token.trim() === "") {
-    return res.status(401).json({ message: "Invalid Token" });
+    return res.status(401).json({ message: "Token not Received" });
   }
-  return new Promise<void>((resolve, reject) => {
-    return jwt.verify(token, process.env.JWT_SECRET, (error, success) => {
-      if (error) {
-        reject(error.message);
-        return res.status(401).json({ message: "Token Expired" });
-      } else {
-        resolve();
-        res.locals.jwtData = success;
-        return next();
-      }
-    });
-  });
+  try {
+    const verify = jwt.verify(token, process.env.JWT_SECRET);
+    if (verify) {
+      res.locals.jwtData = verify;
+      return next();
+    }
+  } catch (_) {
+    return res.status(401).json({ message: "Token Expired" });
+  }
 };
