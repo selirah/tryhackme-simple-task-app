@@ -1,0 +1,48 @@
+.loader {
+  .loading-svg {
+    animation: svgSpinner 1.4s linear infinite;
+
+    circle {
+      animation: svgSpinnerCircle 1.4s ease-in-out infinite;
+      stroke-dasharray: 80px, 200px;
+      stroke-dashoffset: 0px;
+      stroke-linecap: round;
+    }
+
+    &--sm {
+      width: 18px;
+      height: 18px;
+    }
+
+    &--md {
+      width: 24px;
+      height: 24px;
+    }
+
+    &--lg {
+      width: 36px;
+      height: 36px;
+    }
+  }
+}
+
+@keyframes svgSpinner {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes svgSpinnerCircle {
+  0% {
+    stroke-dasharray: 1px, 200px;
+    stroke-dashoffset: 0px;
+  }
+  50% {
+    stroke-dasharray: 100px, 200px;
+    stroke-dashoffset: -15px;
+  }
+  100% {
+    stroke-dasharray: 100px, 200px;
+    stroke-dashoffset: -120px;
+  }
+}

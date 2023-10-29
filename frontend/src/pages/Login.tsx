@@ -2,14 +2,16 @@ import { useState, FormEvent, useEffect } from "react";
 import "../css/auth.css";
 import Input from "../components/Input";
 import Button from "../components/Button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AuthLayout from "../layouts/AuthLayout";
 import { useAuth } from "../hooks/useAuth";
 import type { LoginT } from "../types/Auth";
 import { toast } from "react-hot-toast";
 import Alert from "../components/Alert";
+import Loader from "../components/Loader";
 
 const Login = () => {
+  const navigate = useNavigate();
   const auth = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -36,10 +38,11 @@ const Login = () => {
     await auth?.login(payload);
   };
 
-  // useEffect(() => {
-  //   if (auth?.isLoggedIn) {
-  //   }
-  // }, [auth?.isLoggedIn]);
+  useEffect(() => {
+    if (auth?.user) {
+      return navigate("/");
+    }
+  }, [auth, navigate]);
 
   return (
     <AuthLayout svg="login">
@@ -74,7 +77,9 @@ const Login = () => {
           block
           disabled={auth?.loading}
         >
-          Sign in
+          <div className="btn-content">
+            {auth?.loading ? <Loader size="md" /> : null} <span>Sign in</span>
+          </div>
         </Button>
       </form>
       <h4 className="footer-text">

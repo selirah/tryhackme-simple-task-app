@@ -5,13 +5,17 @@ import { getTasks, createTask, deleteTask, updateTask } from "../apis/tasks";
 
 type Task = {
   tasks: TaskT[];
+  task: TaskT | null;
   error: string;
   loading: boolean;
   isSubmitting: boolean;
-  getUserTasks: () => Promise<void>;
+  getUserTasks: (param?: "active" | "completed" | "expired") => Promise<void>;
   createUserTask: (payload: TaskPayloadT) => Promise<void>;
   updateUserTask: (taskId: string, payload: TaskPayloadT) => Promise<void>;
   deleteUserTask: (taskId: string) => Promise<void>;
+  showTaskForm: boolean;
+  onShowTaskForm: (v: boolean) => void;
+  onSetTask: (value: TaskT | null) => void;
 };
 
 const TasksContext = createContext<Task | null>(null);
@@ -21,14 +25,34 @@ const TasksProvider = ({ children }: { children: ReactNode }) => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [isSubmitting, setSubmitting] = useState(false);
+  const [showTaskForm, setShowTaskForm] = useState(false);
+  const [task, setTask] = useState<TaskT | null>(null);
 
-  const getUserTasks = async () => {
+  const getUserTasks = async (param?: "active" | "completed" | "expired") => {
     try {
       setLoading(true);
       const res = await getTasks();
       if (res.data) {
+        const tasks = res.data.tasks as TaskT[];
         setLoading(false);
-        setTasks(res.data.tasks);
+        if (param === "active") {
+          const filteredTasks = tasks.filter(
+            (task) => new Date(task.dueDate) >= new Date()
+          );
+          setTasks(filteredTasks);
+        } else if (param === "completed") {
+          const filteredTasks = tasks.filter(
+            (task) => task.isCompleted === true
+          );
+          setTasks(filteredTasks);
+        } else if (param === "expired") {
+          const filteredTasks = tasks.filter(
+            (task) => new Date(task.dueDate) < new Date()
+          );
+          setTasks(filteredTasks);
+        } else {
+          setTasks(tasks);
+        }
       }
     } catch (error) {
       setLoading(false);
@@ -100,25 +124,12 @@ const TasksProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const filterTasks = async (param: "active" | "completed" | "expired") => {
-    switch (param) {
-      case "active":
-        setTasks((tasks) =>
-          tasks.filter((task) => new Date(task.dueDate) >= new Date())
-        );
-        break;
-      case "completed":
-        setTasks((tasks) => tasks.filter((task) => task.isCompleted === true));
-        break;
-      case "expired":
-        setTasks((tasks) =>
-          tasks.filter((task) => new Date(task.dueDate) < new Date())
-        );
-        break;
-      default:
-        await getUserTasks();
-        break;
-    }
+  const onShowTaskForm = (v: boolean) => {
+    setShowTaskForm(v);
+  };
+
+  const onSetTask = (v: TaskT | null) => {
+    setTask(v);
   };
 
   const value = {
@@ -129,8 +140,11 @@ const TasksProvider = ({ children }: { children: ReactNode }) => {
     createUserTask,
     updateUserTask,
     deleteUserTask,
-    filterTasks,
-    isSubmitting
+    isSubmitting,
+    showTaskForm,
+    onShowTaskForm,
+    task,
+    onSetTask
   };
 
   return (

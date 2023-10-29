@@ -11,3 +11,10 @@ body {
   font-family: $font-stack;
   line-height: 1.6;
 }
+
+.page-loader {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -1,12 +1,35 @@
 import Badge from "../Badge";
+import { useTasks } from "../../hooks/useTasks";
+import { useScreenSize } from "../../hooks/useScreenSize";
+import classnames from "classnames";
 
 const Filter = () => {
+  const screenSize = useScreenSize();
+  const tasks = useTasks();
+
+  const filterTasks = async (param?: "active" | "completed" | "expired") => {
+    await tasks?.getUserTasks(param);
+  };
+
   return (
-    <div className="filter-container">
-      <Badge color="warning">All</Badge>
-      <Badge color="info">Active</Badge>
-      <Badge color="success">Completed</Badge>
-      <Badge color="error">Expired</Badge>
+    <div
+      className={classnames("filter-container", {
+        "filter-container--hide":
+          tasks?.showTaskForm && screenSize?.screen === "mobile"
+      })}
+    >
+      <Badge color="warning" onClick={() => filterTasks()}>
+        All
+      </Badge>
+      <Badge color="info" onClick={() => filterTasks("active")}>
+        Active
+      </Badge>
+      <Badge color="success" onClick={() => filterTasks("completed")}>
+        Completed
+      </Badge>
+      <Badge color="error" onClick={() => filterTasks("expired")}>
+        Expired
+      </Badge>
     </div>
   );
 };

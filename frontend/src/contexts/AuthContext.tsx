@@ -1,5 +1,10 @@
 import { ReactNode, createContext, useEffect, useState } from "react";
-import { loginUser, signupUser, verifyUserAuth } from "../apis/auth";
+import {
+  loginUser,
+  logoutUser,
+  signupUser,
+  verifyUserAuth
+} from "../apis/auth";
 import type { LoginT, SignupT, UserResponseT, UserT } from "../types/Auth";
 import { AxiosError } from "axios";
 
@@ -11,6 +16,7 @@ type UserAuth = {
   logout: () => Promise<void>;
   error: string;
   loading: boolean;
+  pageLoading: boolean;
 };
 
 const AuthContext = createContext<UserAuth | null>(null);
@@ -20,21 +26,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    // fetch if the user's cookies are valid then skip login
-    async function checkStatus() {
-      const data = await verifyUserAuth();
-      if (data) {
-        const { user } = data;
-        setUser({ email: user.email, name: user.name });
-        setLoggedIn(true);
-      } else {
-        setLoggedIn(false);
-      }
-    }
-    checkStatus();
-  }, []);
+  const [pageLoading, setPageLoading] = useState(false);
 
   const login = async (payload: LoginT) => {
     try {
@@ -42,8 +34,8 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
       setLoading(true);
       const res = await loginUser(payload);
       if (res.data) {
-        const { user } = res.data as UserResponseT;
         setLoading(false);
+        const { user } = res.data as UserResponseT;
         setUser(user);
         setLoggedIn(true);
       }
@@ -78,7 +70,32 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const logout = async () => {};
+  const logout = async () => {
+    await logoutUser();
+    setLoggedIn(false);
+    setUser(null);
+  };
+
+  const checkTokenStatus = async () => {
+    try {
+      setPageLoading(true);
+      const res = await verifyUserAuth();
+      if (res.data) {
+        const { user } = res.data as UserResponseT;
+        setPageLoading(false);
+        setUser(user);
+        setLoggedIn(true);
+      }
+    } catch (error) {
+      setPageLoading(false);
+      throw new Error("Error verifying user token");
+    }
+  };
+
+  useEffect(() => {
+    // fetch if the user's cookies are valid then skip login
+    checkTokenStatus();
+  }, []);
 
   const value = {
     user,
@@ -87,7 +104,8 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     signup,
     logout,
     loading,
-    error
+    error,
+    pageLoading
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
