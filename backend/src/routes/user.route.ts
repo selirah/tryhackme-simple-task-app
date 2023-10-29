@@ -6,6 +6,7 @@ import {
 } from "../utils/request-validation.js";
 import {
   userLogin,
+  userLogout,
   userSignup,
   verifyUser
 } from "../controllers/user.controller.js";
@@ -16,5 +17,6 @@ const userRoutes = Router();
 userRoutes.post("/signup", validate(signupValidation), userSignup);
 userRoutes.post("/login", validate(loginValidation), userLogin);
 userRoutes.get("/verify-user", verifyToken, verifyUser);
+userRoutes.get("/logout", verifyToken, userLogout);
 
 export default userRoutes;

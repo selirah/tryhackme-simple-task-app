@@ -25,12 +25,10 @@ export const userSignup = async (req: Request, res: Response) => {
     const token = createToken(user._id.toString(), user.email);
     // Create Cookie
     createCookie(res, token);
-    return res
-      .status(201)
-      .json({
-        message: "Created",
-        user: { name: user.name, email: user.email }
-      });
+    return res.status(201).json({
+      message: "Created",
+      user: { name: user.name, email: user.email }
+    });
   } catch (error) {
     console.log("USER SIGNUP ERROR: ", error);
     return res.status(500).json({ message: "Something went wrong" });
@@ -55,7 +53,7 @@ export const userLogin = async (req: Request, res: Response) => {
     const token = createToken(user._id.toString(), user.email);
     createCookie(res, token);
     return res
-      .status(201)
+      .status(200)
       .json({ message: "OK", user: { name: user.name, email: user.email } });
   } catch (error) {
     console.log("USER LOGIN ERROR: ", error);
@@ -78,6 +76,27 @@ export const verifyUser = async (_: Request, res: Response) => {
     return res
       .status(200)
       .json({ message: "OK", user: { name: user.name, email: user.email } });
+  } catch (error) {
+    console.log("USER VERIFY TOKEN ERROR: ", error);
+    return res.status(500).json({ message: "Something went wrong" });
+  }
+};
+
+// Logout User
+export const userLogout = async (_: Request, res: Response) => {
+  try {
+    const user = await User.findById(res.locals?.jwtData?.id);
+    if (!user) {
+      return res.status(401).json({ message: "Invalid Token" });
+    }
+    // Compare IDs
+    if (user._id.toString() !== res.locals?.jwtData?.id) {
+      return res.status(401).json({ message: "Invalid Token" });
+    }
+
+    clearCookie(res);
+
+    return res.status(200).json({ message: "OK" });
   } catch (error) {
     console.log("USER VERIFY TOKEN ERROR: ", error);
     return res.status(500).json({ message: "Something went wrong" });
