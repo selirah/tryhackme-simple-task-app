@@ -74,7 +74,7 @@ There were some few decisions that I made regarding the development of both the 
 
 ### Backend
 
-- **User Authentication** - The test instructions state explicitly on implementing user auth but I thought I had to, to make the application cleaner, secured and well organized. This means one user can only have a view of their own tasks when they log into the app.
+- **User Auth** - The test instructions state explicitly on implementing user auth but I thought I had to, to make the application cleaner, secured and well organized. This means one user can only have a view of their own tasks when they log into the app.
 
 - **Cookie Auth** - Also because this application is a simple one, I decided to go with the Cookie authentication using as a way of authorizing users using middleware. A JWT token is created and signed with the user's data and the secret key of the application. The token is then parsed into the response header as Cookie and set in the user's browser. The cookie expires in 1 hour. `httpOnly` is set to true to prevent client side scripts from accessing data
   All the tasks api http methods (`GET`, `POST`, `PUT`, `DELETE`) are authorized requests.
