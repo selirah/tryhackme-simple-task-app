@@ -1,11 +1,11 @@
 import { Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
-import NotFound from "./pages/NotFound";
+import Home from "../../frontend/src/pages/Home";
+import Login from "../../frontend/src/pages/Login";
+import Signup from "../../frontend/src/pages/Signup";
+import NotFound from "../../frontend/src/pages/NotFound";
 import PrivateRoute from "./PrivateRoute";
-import { useAuth } from "./hooks/useAuth";
-import PageLoader from "./pages/PageLoader";
+import { useAuth } from "../../frontend/src/hooks/useAuth";
+import PageLoader from "../../frontend/src/pages/PageLoader";
 
 function App() {
   const auth = useAuth();
