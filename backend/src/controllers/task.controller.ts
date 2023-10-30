@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { TaskT } from "../types/Task.js";
-import Task from "../models/Task.js";
+import { TaskT } from "../types/Task";
+import Task from "../models/Task";
 
 // create task controller
 export const createTask = async (req: Request, res: Response) => {

@@ -1,13 +1,13 @@
 import { Router } from "express";
-import { validate } from "../middlewares/validator.js";
-import { taskValidation } from "../utils/request-validation.js";
+import { validate } from "../middlewares/validator";
+import { taskValidation } from "../utils/request-validation";
 import {
   createTask,
   getUserTasks,
   updateTask,
   deleteTask
-} from "../controllers/task.controller.js";
-import { verifyToken } from "../middlewares/verify-token.js";
+} from "../controllers/task.controller";
+import { verifyToken } from "../middlewares/verify-token";
 
 const taskRoutes = Router();
 

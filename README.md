@@ -105,5 +105,5 @@ There were some few decisions that I made regarding the development of both the 
 
 ## Challenge Encountered
 
-The only challenge I faced has to do with the package used for hashing user password `bcryptjs`. This package uses `commonjs` instead of `module`. The `module` setting in the `tsconfig.json` is a `NodeNext` and that of the `package.json` file is `module`. bcrypt does not support esm compatibility options. This was preventing the backend from building successfully in CI/CD.
-The solution was to use default import instead of named import from bcryptjs and this solved the issue.
+The only challenge I faced had to do with the package used for hashing user password `bcryptjs`. This package uses `commonjs` instead of `module`. The `module` setting in the `tsconfig.json` is a `NodeNext` and that of the `package.json` file is `module`. bcrypt does not support esm compatibility options. This was preventing the backend from building successfully in CI/CD.
+The solution was to update the `tsconfig.json` file to accept `commonjs` and also remove the type from the `package.json`.

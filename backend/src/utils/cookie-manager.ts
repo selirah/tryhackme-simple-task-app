@@ -1,5 +1,5 @@
 import { Response } from "express";
-import { COOKIE_NAME } from "./constants.js";
+import { COOKIE_NAME } from "./constants";
 
 // Create Cookie
 export const createCookie = (res: Response, token: string) => {

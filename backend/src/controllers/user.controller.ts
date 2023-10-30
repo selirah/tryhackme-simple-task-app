@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
-import { SignupT } from "../types/Signup.js";
-import User from "../models/User.js";
+import { SignupT } from "../types/Signup";
+import User from "../models/User";
 import bcrypt from "bcryptjs";
-import { clearCookie, createCookie } from "../utils/cookie-manager.js";
-import { createToken } from "../utils/token-manager.js";
-import { LoginT } from "../types/Login.js";
+import { clearCookie, createCookie } from "../utils/cookie-manager";
+import { createToken } from "../utils/token-manager";
+import { LoginT } from "../types/Login";
 
 // User Signup Controller
 export const userSignup = async (req: Request, res: Response) => {

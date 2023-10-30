@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { COOKIE_NAME } from "../utils/constants.js";
+import { COOKIE_NAME } from "../utils/constants";
 import jwt from "jsonwebtoken";
 
 // This middleware verifies the user's token for every authorized request made
@@ -13,12 +13,13 @@ export const verifyToken = async (
     return res.status(401).json({ message: "Token not Received" });
   }
   try {
-    const verify = jwt.verify(token, process.env.JWT_SECRET);
+    const verify = jwt.verify(token, process.env.JWT_SECRET || "");
     if (verify) {
       res.locals.jwtData = verify;
       return next();
     }
-  } catch (_) {
+  } catch (error) {
+    console.log("VERIFY TOKEN ERROR: ", error);
     return res.status(401).json({ message: "Token Expired" });
   }
 };

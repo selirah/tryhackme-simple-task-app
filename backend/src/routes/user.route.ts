@@ -1,16 +1,13 @@
 import { Router } from "express";
-import { validate } from "../middlewares/validator.js";
-import {
-  loginValidation,
-  signupValidation
-} from "../utils/request-validation.js";
+import { validate } from "../middlewares/validator";
+import { loginValidation, signupValidation } from "../utils/request-validation";
 import {
   userLogin,
   userLogout,
   userSignup,
   verifyUser
-} from "../controllers/user.controller.js";
-import { verifyToken } from "../middlewares/verify-token.js";
+} from "../controllers/user.controller";
+import { verifyToken } from "../middlewares/verify-token";
 
 const userRoutes = Router();
 
