@@ -25,7 +25,6 @@ jobs:
 
       - name: Install dependencies
         run: |
-          npm install -g node-gyp
           npm install
           npm ci
         working-directory: ./backend

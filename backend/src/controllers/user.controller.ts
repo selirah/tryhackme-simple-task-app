@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { SignupT } from "../types/Signup.js";
 import User from "../models/User.js";
-import { hash, compare } from "bcryptjs";
+import bcrypt from "bcryptjs";
 import { clearCookie, createCookie } from "../utils/cookie-manager.js";
 import { createToken } from "../utils/token-manager.js";
 import { LoginT } from "../types/Login.js";
@@ -15,7 +15,7 @@ export const userSignup = async (req: Request, res: Response) => {
     if (alreadyUser) {
       return res.status(401).json({ message: "User already registered" });
     }
-    const hashedPassword = await hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10);
     const user = new User({ name, email, password: hashedPassword });
     await user.save();
     // We are not verifying user since it's a simple app so we authenticate user directly
@@ -45,7 +45,7 @@ export const userLogin = async (req: Request, res: Response) => {
       return res.status(401).json({ message: "Invalid Username or Password" });
     }
     // Verify password
-    const checkPass = await compare(password, user.password);
+    const checkPass = await bcrypt.compare(password, user.password);
     if (!checkPass) {
       return res.status(401).json({ message: "Invalid Username or Password" });
     }
