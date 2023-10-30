@@ -102,3 +102,8 @@ There were some few decisions that I made regarding the development of both the 
 
 - **Running Development Tests** - Setting up localized testing in the application such as unit tests, integration, and end-to-end tests. They play a vital role in ensuring the quality, reliability, and maintainability of software applications.
 - **Running the application on Containers such as Docker** - Containerization is a technique used to package an application and its dependencies, including libraries and runtime, in a consistent and isolated environment called a container. Containers are portable, lightweight, and can run consistently across different environments, making them an excellent choice for deploying applications.
+
+## Challenge Encountered
+
+The only challenge I faced has to do with the package used for hashing user password `bcryptjs`. This package uses `commonjs` instead of `module`. The `module` setting in the `tsconfig.json` is a `NodeNext` and that of the `package.json` file is `module`. bcrypt does not support esm compatibility options. This was preventing the backend from building successfully in CI/CD.
+The solution was to use default import instead of named import from bcryptjs and this solved the issue.
