@@ -85,10 +85,14 @@ There were some few decisions that I made regarding the development of both the 
 
 ### Frontend
 
-**UI/UX Design**
+- **UI/UX Design** - UI mocks are a valuable tool in the software development process, helping to ensure that the final product aligns with the design and usability goals. They promote collaboration, save time and resources, and improve the overall quality of the application.
 
-**SCSS/SASS (Vanila CSS)**
+- **SCSS/SASS (Vanila CSS)** - Vanilla CSS/SASS allows for complete customization. You have full control over the styles and can create designs that are tailored to the project's specific requirements. CSS libraries often come with a lot of styles and features that you may not need, leading to unnecessary file size and complexity expecially for developing a simple application such as this.
 
-**React Context API**
+- **React Context API for State Management** - For a simple application like this, the React Context API is often a suitable and efficient choice. It provides a more straightforward and lightweight approach to state management and reduces the overhead associated with state management libraries such as Redux. Redux is suitbale for complex applications.
 
-**Use of SVGs**
+## Enhancements/Improvements to Features
+
+- **User Auth** - Signup and Login features are implemented to secure user data adn also keep the application ordganized. A user can only have access to tasks they have created.
+- **Task Filtering** - You can filter tasks based on active tasks, completed tasks, or expired tasks. This will enable the user keep track of all tasks they create.
+- **Check to complete feature** - User can check a task to set it to complete.
