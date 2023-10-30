@@ -1,6 +1,6 @@
 import Checkbox from "../Checkbox";
 import MoreSVG from "../../assets/arrow_forward_ios.svg";
-import { TaskT } from "../../types/Task";
+import { TaskPayloadT, TaskT } from "../../types/Task";
 import classnames from "classnames";
 import { useTasks } from "../../hooks/useTasks";
 
@@ -17,6 +17,17 @@ const TaskItem = ({ task, lastItem }: TaskItemProps) => {
     tasks?.onShowTaskForm(true);
   };
 
+  const onSetCompleteTask = async (checked: boolean, task: TaskT) => {
+    const { title, description, dueDate, _id } = task;
+    const payload: TaskPayloadT = {
+      title,
+      description,
+      dueDate,
+      isCompleted: checked ? true : false
+    };
+    await tasks?.updateUserTask(_id, payload);
+  };
+
   return (
     <div
       className={classnames("task-item", {
@@ -24,8 +35,20 @@ const TaskItem = ({ task, lastItem }: TaskItemProps) => {
       })}
     >
       <div className="task">
-        <Checkbox name="check" />
-        <h4 className="task-title">{task.title}</h4>
+        <Checkbox
+          name={task.title}
+          value={task._id}
+          onChange={(e) => onSetCompleteTask(e.target.checked, task)}
+          checked={task.isCompleted}
+        />
+        <button
+          className={classnames("task-title", {
+            "task-title--strike": task.isCompleted
+          })}
+          onClick={() => setSelectedTask(task)}
+        >
+          {task.title}
+        </button>
       </div>
       <button className="action" onClick={() => setSelectedTask(task)}>
         <img src={MoreSVG} alt="action icon" />

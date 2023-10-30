@@ -1,0 +1,26 @@
+@import "./variables";
+
+.not-found-page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
+
+  .brand {
+    color: $primary-color;
+    font-size: 64px;
+    font-family: "Luckiest Guy";
+    width: 200px;
+    line-height: 1;
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  .not-found-description {
+    font-size: 32px;
+    font-weight: 700;
+    text-align: center;
+  }
+}

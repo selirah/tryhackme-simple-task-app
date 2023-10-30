@@ -48,7 +48,7 @@ const Login = () => {
     <AuthLayout svg="login">
       <h4 className="brand">Your Todo</h4>
       <h4 className="auth-title">Sign in</h4>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} role="form">
         {auth?.error ? <Alert color="error">{auth.error}</Alert> : null}
         <div className="input-group">
           <Input

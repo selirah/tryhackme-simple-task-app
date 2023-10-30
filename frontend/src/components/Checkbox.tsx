@@ -4,9 +4,10 @@ import "../css/checkbox.css";
 type CheckboxProps = {
   name: string;
   disabled?: boolean;
-  value?: string;
+  value?: number | string;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   checked?: boolean;
+  label?: string;
 };
 
 const Checkbox = ({
@@ -14,7 +15,8 @@ const Checkbox = ({
   disabled,
   name,
   onChange,
-  value
+  value,
+  label
 }: CheckboxProps) => {
   return (
     <div className="wrapper">
@@ -29,7 +31,7 @@ const Checkbox = ({
         disabled={disabled}
         checked={checked}
       />
-      <label htmlFor={name}></label>
+      <label htmlFor={name}>{label}</label>
     </div>
   );
 };

@@ -54,7 +54,7 @@ const Signup = () => {
     <AuthLayout svg="signup">
       <h4 className="brand">Your Todo</h4>
       <h4 className="auth-title">Sign up</h4>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} role="form">
         {auth?.error ? <Alert color="error">{auth.error}</Alert> : null}
         <div className="input-group">
           <Input

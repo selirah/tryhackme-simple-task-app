@@ -33,6 +33,9 @@
   label {
     position: relative;
     cursor: pointer;
+    font-size: 16px;
+    font-weight: 700;
+
     &:before {
       content: "";
       appearance: none;
@@ -47,6 +50,7 @@
       cursor: pointer;
       width: 25px;
       height: 25px;
+      margin-right: 16px;
     }
   }
 }

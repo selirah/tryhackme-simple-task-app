@@ -6,12 +6,18 @@ import { useTasks } from "../../hooks/useTasks";
 const SubHeader = () => {
   const screenSize = useScreenSize();
   const tasks = useTasks();
+
+  const onCreateNewTask = () => {
+    tasks?.onSetTask(null);
+    tasks?.onShowTaskForm(true);
+  };
+
   return (
     <div className="sub-nav">
       <h4 className="total-tasks">Tasks ({tasks?.tasks.length})</h4>
       <Button
         size={screenSize?.screen === "mobile" ? "sm" : "md"}
-        onClick={() => tasks?.onShowTaskForm(true)}
+        onClick={onCreateNewTask}
       >
         <div className="button-content">
           <img src={AddSVG} alt="add icon" />

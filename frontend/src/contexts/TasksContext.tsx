@@ -2,6 +2,7 @@ import { ReactNode, createContext, useState } from "react";
 import type { TaskPayloadT, TaskT } from "../types/Task";
 import { AxiosError } from "axios";
 import { getTasks, createTask, deleteTask, updateTask } from "../apis/tasks";
+import { toast } from "react-hot-toast";
 
 type Task = {
   tasks: TaskT[];
@@ -70,8 +71,9 @@ const TasksProvider = ({ children }: { children: ReactNode }) => {
       setSubmitting(true);
       const res = await createTask(payload);
       if (res.data) {
-        setLoading(false);
-        setTasks((tasks) => [...tasks, ...res.data.task]);
+        setSubmitting(false);
+        setTasks((tasks) => [...tasks, res.data.task]);
+        toast.success("Task created successfully!", { id: "task" });
       }
     } catch (error) {
       setSubmitting(false);
@@ -79,6 +81,7 @@ const TasksProvider = ({ children }: { children: ReactNode }) => {
       if (err.response && err.response.data) {
         const { data } = err.response;
         setError(JSON.stringify(data));
+        toast.error("Task creation failed!", { id: "task" });
       }
     }
   };
@@ -90,10 +93,10 @@ const TasksProvider = ({ children }: { children: ReactNode }) => {
       const res = await updateTask(taskId, payload);
       if (res.data) {
         setSubmitting(false);
-        const copyTasks = [...tasks];
-        copyTasks.filter((task) => task._id !== taskId);
+        const copyTasks = tasks.filter((task) => task._id !== taskId);
         copyTasks.push(res.data.task);
         setTasks(copyTasks);
+        toast.success("Task updated successfully!", { id: "task" });
       }
     } catch (error) {
       setSubmitting(false);
@@ -101,6 +104,7 @@ const TasksProvider = ({ children }: { children: ReactNode }) => {
       if (err.response && err.response.data) {
         const { data } = err.response;
         setError(JSON.stringify(data));
+        toast.error("Task update failed!", { id: "task" });
       }
     }
   };
@@ -109,10 +113,14 @@ const TasksProvider = ({ children }: { children: ReactNode }) => {
     try {
       setError("");
       setSubmitting(true);
+      toast.loading("Deleting task...", { id: "task" });
       const res = await deleteTask(taskId);
       if (res.data) {
         setSubmitting(false);
         setTasks((tasks) => tasks.filter((task) => task._id !== taskId));
+        onShowTaskForm(false);
+        setTask(null);
+        toast.success("Task deleted successfully!", { id: "task" });
       }
     } catch (error) {
       setSubmitting(false);
@@ -120,6 +128,7 @@ const TasksProvider = ({ children }: { children: ReactNode }) => {
       if (err.response && err.response.data) {
         const { data } = err.response;
         setError(JSON.stringify(data));
+        toast.error("Task deletion failed!", { id: "task" });
       }
     }
   };

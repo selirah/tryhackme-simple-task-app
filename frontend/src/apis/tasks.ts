@@ -14,5 +14,5 @@ export const updateTask = async (taskId: string, payload: TaskPayloadT) => {
 };
 
 export const deleteTask = async (taskId: string) => {
-  return await axios.put(`/tasks/delete/${taskId}`);
+  return await axios.delete(`/tasks/delete/${taskId}`);
 };
