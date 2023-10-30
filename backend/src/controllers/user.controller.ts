@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { SignupT } from "../types/Signup.js";
 import User from "../models/User.js";
-import { hash, compare } from "bcrypt";
+import { hash, compare } from "bcryptjs";
 import { clearCookie, createCookie } from "../utils/cookie-manager.js";
 import { createToken } from "../utils/token-manager.js";
 import { LoginT } from "../types/Login.js";
