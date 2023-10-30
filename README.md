@@ -9,6 +9,7 @@ The following are instructions on how to set up the project locally:
 - Clone the [repository](https://github.com/selirah/tryhackme-simple-task-app.git) into your local envorionment.
 - Open the application with your favorite editor (e.g VS Code).
 - The following subdirectories and README.md file are found in the application root:
+  - .github
   - backend
   - frontend
   - README
