@@ -30,6 +30,7 @@ const Checkbox = ({
         onChange={onChange}
         disabled={disabled}
         checked={checked}
+        role="checkbox"
       />
       <label htmlFor={name}>{label}</label>
     </div>
