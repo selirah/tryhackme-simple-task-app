@@ -96,3 +96,9 @@ There were some few decisions that I made regarding the development of both the 
 - **User Auth** - Signup and Login features are implemented to secure user data adn also keep the application ordganized. A user can only have access to tasks they have created.
 - **Task Filtering** - You can filter tasks based on active tasks, completed tasks, or expired tasks. This will enable the user keep track of all tasks they create.
 - **Check to complete feature** - User can check a task to set it to complete.
+- **CI/CD Automation**: Using Github Actions, a popular web-based platform for version control and collaboration on software development projects. GitHub Actions allows developers to automate various tasks and workflows within their GitHub repositories.
+
+## Future Improvements
+
+- **Running Development Tests** - Setting up localized testing in the application such as unit tests, integration, and end-to-end tests. They play a vital role in ensuring the quality, reliability, and maintainability of software applications.
+- **Running the application on Containers such as Docker** - Containerization is a technique used to package an application and its dependencies, including libraries and runtime, in a consistent and isolated environment called a container. Containers are portable, lightweight, and can run consistently across different environments, making them an excellent choice for deploying applications.

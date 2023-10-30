@@ -30,7 +30,7 @@ jobs:
         working-directory: ./backend
 
       - name: Build
-        run: npm run build
+        run: npm run build --update-binary bcrypt
         working-directory: ./backend
 
   build_frontend:
